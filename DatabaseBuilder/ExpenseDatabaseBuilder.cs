@@ -5,7 +5,7 @@ namespace MyWallet{
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Amount);
-                entity.Property(e => e.ExpenseTime);
+                entity.Property(e => e.ExpenseDate);
                 entity.HasOne(e => e.ExpenseItem);
             });
 

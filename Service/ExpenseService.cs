@@ -8,39 +8,82 @@ namespace MyWallet
             this._expenseRepository = _expenseRepository;
         }
 
-        public Task<Expense> CreateExpense(Expense expense)
+        public async Task<Expense> CreateExpense(Expense expense)
         {
-            throw new NotImplementedException();
+            Expense existExpense = await _expenseRepository.GetExpenseByName(expense.Name);
+            if (existExpense != null)
+            {
+                throw new InvalidDataException("Please insert different expense name");
+            }
+            return await _expenseRepository.CreateExpense(expense);
         }
 
-        public Task DeleteExpense(int id)
+        public async Task DeleteExpense(int id)
         {
-            throw new NotImplementedException();
+            Expense expense = await _expenseRepository.GetExpenseById(id);
+            if (expense == null)
+            {
+                throw new InvalidOperationException("This expense doesn't exist");
+            }
+            await _expenseRepository.DeleteExpense(expense);
         }
 
-        public Task<IEnumerable<Expense>> GetAllExpenses()
+        public async Task<IEnumerable<ExpenseDTO>> GetAllExpenses()
         {
-            throw new NotImplementedException();
+            IEnumerable<Expense> expenseList = await _expenseRepository.GetAllExpenses();   //TODO Göz at
+            if (expenseList == null)
+            {
+                throw new InvalidOperationException("List of expenses is empty");
+            }
+            var total = expenseList.Sum(x => x.Amount);
+            List<ExpenseDTO> expenseDTOList = new List<ExpenseDTO>();
+            expenseList.Select(x => new ExpenseDTO(){      
+                Id = x.Id,
+                Amount = x.Amount,
+                ExpenseDate = x.ExpenseDate,
+                Name = x.Name,
+                ExpenseItemName = x.ExpenseItem?.Name
+            });
+
+            return expenseDTOList;
         }
 
-        public Task<Expense> GetExpenseById(int id)
+        public async Task<Expense> GetExpenseById(int id)
         {
-            throw new NotImplementedException();
+           Expense expense = await _expenseRepository.GetExpenseById(id);
+            if(expense == null){
+                throw new InvalidOperationException("This expense doesn't exist");
+            }
+            return expense;
         }
 
-        public Task<Expense> GetExpenseByItemId(int itemId)
+        public async Task<Expense> GetExpenseByItemId(int itemId)
         {
-            throw new NotImplementedException();
+            Expense expense = await _expenseRepository.GetExpenseByItemId(itemId);
+            if(expense == null){
+                throw new InvalidOperationException("This expense doesn't exist");
+            }
+            return expense;
         }
 
-        public Task<Expense> GetExpenseByItemName(string itemName)
+        public async Task<Expense> GetExpenseByItemName(string itemName)
         {
-            throw new NotImplementedException();
+            Expense expense = await _expenseRepository.GetExpenseByItemName(itemName);
+            if (expense == null)
+            {
+                throw new InvalidOperationException("This expense doesn't exist");
+            }
+            return expense;
         }
 
-        public Task<IEnumerable<Expense>> GetExpensesByDate(DateTime dateTime)
+        public async Task<IEnumerable<Expense>> GetExpensesByDate(DateTime dateTime)
         {
-            throw new NotImplementedException();
+            IEnumerable<Expense> expenseList = await _expenseRepository.GetExpensesByDate(dateTime);
+            if (expenseList == null)
+            {
+                throw new InvalidOperationException("The list of expense for belong this date is empty");
+            }
+            return expenseList;
         }
 
         public Task<Expense> UpdateExpense(Expense expense)
