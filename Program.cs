@@ -14,6 +14,12 @@ builder.Services.AddScoped<ISourceOfIncomeRepository, SourceOfIncomeRepository>(
 builder.Services.AddScoped<ISourceOfIncomeService, SourceOfIncomeService>();
 builder.Services.AddScoped<IIncomeRepository, IncomeRepository>();
 builder.Services.AddScoped<IIncomeService, IncomeService>();
+builder.Services.AddScoped<IExpenseItemRepository, ExpenseItemRepository>();
+builder.Services.AddScoped<IExpenseItemService, ExpenseItemService>();
+builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>();
+builder.Services.AddScoped<IExpenseService, ExpenseService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
