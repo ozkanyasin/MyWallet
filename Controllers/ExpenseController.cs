@@ -32,7 +32,7 @@ public class ExpenseController : ControllerBase
         return await _expenseService.GetExpenseByItemName(expenseItemName);
     }
 
-    [HttpGet("id")]
+    [HttpGet("expenseItemId")]
     public async Task<Expense> GetIncomeByExpenseItemId(int expenseItemId){
         return await _expenseService.GetExpenseByItemId(expenseItemId);
     }

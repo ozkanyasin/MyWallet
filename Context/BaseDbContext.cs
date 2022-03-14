@@ -3,6 +3,7 @@ namespace MyWallet
     public class BaseDbContext : DbContext
     {
         public DbSet<User>? Users { get; set; }
+        public DbSet<Wallet>? Wallets { get; set; }
         public DbSet<Expense>? Expenses { get; set; }
         public DbSet<ExpenseItem>? ExpenseItems { get; set; }
         public DbSet<Income>? Incomes { get; set; }

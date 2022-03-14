@@ -32,7 +32,7 @@ public class IncomeController : ControllerBase
         return await _incomeService.GetIncomeBySourceName(sourceName);
     }
 
-    [HttpGet("id")]
+    [HttpGet("sourceId")]
     public async Task<Income> GetIncomeBySourceId(int sourceId){
         return await _incomeService.GetIncomeBySourceId(sourceId);
     }
