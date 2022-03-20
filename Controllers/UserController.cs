@@ -23,12 +23,12 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("id")]
-    public async Task<User> GetUserById(int id){
+    public async Task<UserDTO> GetUserById(int id){
         return await _userService.GetUserById(id);
     }
 
     [HttpGet("email")]
-    public async Task<User> GetUserByEmail(string email){
+    public async Task<UserDTO> GetUserByEmail(string email){
         return await _userService.GetUserByEmail(email);
     }
 
