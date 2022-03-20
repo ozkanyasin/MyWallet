@@ -11,8 +11,8 @@ using MyWallet;
 namespace MyWallet.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20220315210849_deneme")]
-    partial class deneme
+    [Migration("20220320185119_leblebi")]
+    partial class leblebi
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

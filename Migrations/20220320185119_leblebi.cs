@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyWallet.Migrations
 {
-    public partial class deneme : Migration
+    public partial class leblebi : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
