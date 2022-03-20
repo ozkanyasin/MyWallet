@@ -32,7 +32,7 @@ public class IncomeController : ControllerBase
         return await _incomeService.GetIncomeBySourceName(sourceName);
     }
 
-    [HttpGet("id")]
+    [HttpGet("sourceId")]
     public async Task<Income> GetIncomeBySourceId(int sourceId){
         return await _incomeService.GetIncomeBySourceId(sourceId);
     }
@@ -47,6 +47,9 @@ public class IncomeController : ControllerBase
         await _incomeService.DeleteIncome(id);
     }
 
-    //Todo Update Eklenecek
+    [HttpPut("update")]
+    public async Task<Income> UpdateIncome(Income income){
+        return await _incomeService.UpdateIncome(income);
+    }
 
 }

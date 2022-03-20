@@ -35,7 +35,7 @@ namespace MyWallet
             {
                 throw new InvalidOperationException("List of income is empty");
             }
-            var total = incomeList.Sum(x => x.Amount);
+            var total = incomeList.Sum(x => x.Amount); // bütün gelirlerin toplamı diye düşünüyorum
             List<IncomeDTO> incomeDTOList = new List<IncomeDTO>();
             incomeList.Select(x => new IncomeDTO()
             {      // foreach gibi
@@ -89,9 +89,14 @@ namespace MyWallet
             return income;
         }
 
-        public Task<Income> UpdateIncome(Income income)
+        public async Task<Income> UpdateIncome(Income income)
         {
-            throw new NotImplementedException(); // TODO update
+            Income existingIncome = await _incomeRepository.GetIncomeByName(income.Name);
+            if(existingIncome != null){
+                _incomeRepository.UpdateIncome(income);
+                return income;
+            }
+            throw new MethodAccessException("This income doesn't exist");
         }
     }
 }
