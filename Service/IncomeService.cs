@@ -35,7 +35,7 @@ namespace MyWallet
             {
                 throw new InvalidOperationException("List of income is empty");
             }
-            var total = incomeList.Sum(x => x.Amount);
+            var total = incomeList.Sum(x => x.Amount); // bütün gelirlerin toplamı diye düşünüorum
             List<IncomeDTO> incomeDTOList = new List<IncomeDTO>();
             incomeList.Select(x => new IncomeDTO()
             {      // foreach gibi

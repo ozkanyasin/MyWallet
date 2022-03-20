@@ -18,7 +18,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<User>> GetAllUsers(){
+    public async Task<IEnumerable<UserDTO>> GetAllUsers(){
         return await _userService.GetUsers();
     }
 
@@ -33,7 +33,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("IsActive")]
-    public async Task<IEnumerable<User>> GetUsersByStatus(bool IsActive){
+    public async Task<IEnumerable<UserDTO>> GetUsersByStatus(bool IsActive){
         return await _userService.GetUsersByStatus(IsActive);
     }
 

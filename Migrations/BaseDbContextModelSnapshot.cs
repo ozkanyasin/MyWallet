@@ -146,7 +146,7 @@ namespace MyWallet.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Wallet");
+                    b.ToTable("Wallets");
                 });
 
             modelBuilder.Entity("MyWallet.Expense", b =>

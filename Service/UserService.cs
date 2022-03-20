@@ -36,42 +36,42 @@ namespace MyWallet
             return user;
         }
 
-        public async Task<User> GetUserById(int id)
+        public async Task<UserDTO> GetUserById(int id)
         {
             User user = await _userRepository.GetUserById(id);
             if (user == null)
             {
                 throw new InvalidOperationException("This user doesn't exist");
             }
+           // UserDTO userDTO = user
             return user;
         }
 
-        public async Task<User> GetUserByStatus(bool IsActive)
-        {
-            User user = await _userRepository.GetUserByStatus(IsActive);
-            if (user == null)
-            {
-                throw new InvalidOperationException("This user doesn't exist");
-            }
-            return user;
-        }
-
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<IEnumerable<UserDTO>> GetUsers()
         {
             IEnumerable<User> userList = await _userRepository.GetUsers();
             if(userList == null){
                 throw new InvalidOperationException("User list is empty");
             }
-            return userList;
+            
+            IEnumerable<UserDTO> userDTOs = userList.Select(x =>  new UserDTO(){
+                Name = x.Name,
+                Email = x.Email
+            });
+            return userDTOs;
         }
 
-        public async Task<IEnumerable<User>> GetUsersByStatus(bool IsActive)
+        public async Task<IEnumerable<UserDTO>> GetUsersByStatus(bool IsActive)
         {
             IEnumerable<User> userList = await _userRepository.GetUsersByStatus(IsActive);
             if(userList == null){
                 throw new InvalidOperationException("User list is empty");
             }
-            return userList;
+            IEnumerable<UserDTO> userDTOs = userList.Select(x =>  new UserDTO(){
+                Name = x.Name,
+                Email = x.Email
+            });
+            return userDTOs;
         }
 
         public Task<User> UpdateUser(User user)

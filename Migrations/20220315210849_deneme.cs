@@ -64,7 +64,7 @@ namespace MyWallet.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Wallet",
+                name: "Wallets",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -75,9 +75,9 @@ namespace MyWallet.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Wallet", x => x.Id);
+                    table.PrimaryKey("PK_Wallets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Wallet_Users_UserId",
+                        name: "FK_Wallets_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id");
@@ -106,9 +106,9 @@ namespace MyWallet.Migrations
                         principalTable: "ExpenseItems",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Expenses_Wallet_WalletId",
+                        name: "FK_Expenses_Wallets_WalletId",
                         column: x => x.WalletId,
-                        principalTable: "Wallet",
+                        principalTable: "Wallets",
                         principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -135,9 +135,9 @@ namespace MyWallet.Migrations
                         principalTable: "SourceOfIncomes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Incomes_Wallet_WalletId",
+                        name: "FK_Incomes_Wallets_WalletId",
                         column: x => x.WalletId,
-                        principalTable: "Wallet",
+                        principalTable: "Wallets",
                         principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -163,8 +163,8 @@ namespace MyWallet.Migrations
                 column: "WalletId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Wallet_UserId",
-                table: "Wallet",
+                name: "IX_Wallets_UserId",
+                table: "Wallets",
                 column: "UserId");
         }
 
@@ -183,7 +183,7 @@ namespace MyWallet.Migrations
                 name: "SourceOfIncomes");
 
             migrationBuilder.DropTable(
-                name: "Wallet");
+                name: "Wallets");
 
             migrationBuilder.DropTable(
                 name: "Users");
