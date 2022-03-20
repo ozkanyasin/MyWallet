@@ -47,6 +47,9 @@ public class IncomeController : ControllerBase
         await _incomeService.DeleteIncome(id);
     }
 
-    //Todo Update Eklenecek
+    [HttpPut("update")]
+    public async Task<Income> UpdateIncome(Income income){
+        return await _incomeService.UpdateIncome(income);
+    }
 
 }

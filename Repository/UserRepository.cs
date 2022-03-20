@@ -1,6 +1,7 @@
 namespace MyWallet
 {
-    public class UserRepository : IUserRepository{
+    public class UserRepository : IUserRepository
+    {
         private readonly BaseDbContext _baseDbContext;
         public UserRepository(BaseDbContext _baseDbContext)
         {
@@ -18,6 +19,23 @@ namespace MyWallet
         {
             _baseDbContext.Remove(user);
             await _baseDbContext.SaveChangesAsync();
+        }
+
+        public User FindAccountByEmailAndPassword(LoginDTO loginDTO)
+        {
+            User accountFinded = (from x in _baseDbContext.Users
+                                  where x.Email == loginDTO.Email && x.Password == loginDTO.Password
+                                  select x).FirstOrDefault();
+            return accountFinded;
+
+        }
+
+        public User findAccountById(int id)
+        {
+            User accountByID = (from x in _baseDbContext.Users
+                                where x.Id == id
+                                select x).FirstOrDefault();
+            return accountByID;
         }
 
         public async Task<User> GetUserByEmail(string email)
@@ -42,7 +60,7 @@ namespace MyWallet
 
         public async Task<IEnumerable<User>> GetUsersByStatus(bool _IsActive)
         {
-            return await _baseDbContext.Users.Where(x => x.IsActive ==_IsActive).ToListAsync();
+            return await _baseDbContext.Users.Where(x => x.IsActive == _IsActive).ToListAsync();
         }
 
         public async Task<User> UpdateUser(User user)

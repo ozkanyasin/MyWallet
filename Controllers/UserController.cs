@@ -42,6 +42,9 @@ public class UserController : ControllerBase
         await _userService.DeleteUser(id);
     }
 
-    //Todo Update Eklenecek
+    [HttpPut("update")]
+    public async Task<User> UpdateUser(User user){
+        return await _userService.UpdateUser(user);
+    }
 
 }

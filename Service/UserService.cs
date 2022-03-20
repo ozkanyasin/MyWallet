@@ -26,14 +26,18 @@ namespace MyWallet
             await _userRepository.DeleteUser(user);
         }
 
-        public async Task<User> GetUserByEmail(string email)
+        public async Task<UserDTO> GetUserByEmail(string email)
         {
             User user = await _userRepository.GetUserByEmail(email);
             if (user == null)
             {
                 throw new InvalidOperationException("This user doesn't exist");
             }
-            return user;
+            UserDTO userDTO = new UserDTO(){
+                Name = user.Name,
+                Email = user.Email
+            };
+            return userDTO;
         }
 
         public async Task<UserDTO> GetUserById(int id)
@@ -43,8 +47,11 @@ namespace MyWallet
             {
                 throw new InvalidOperationException("This user doesn't exist");
             }
-           // UserDTO userDTO = user
-            return user;
+            UserDTO userDTO = new UserDTO(){
+                Name = user.Name,
+                Email = user.Email
+            };
+            return userDTO;
         }
 
         public async Task<IEnumerable<UserDTO>> GetUsers()
@@ -74,9 +81,14 @@ namespace MyWallet
             return userDTOs;
         }
 
-        public Task<User> UpdateUser(User user)
+        public async Task<User> UpdateUser(User user)
         {   
-            throw new NotImplementedException(); //TODO
+            User existingUser = await _userRepository.GetUserByEmail(user.Email);
+            if(existingUser != null){
+                _userRepository.UpdateUser(user);
+                return user;
+            }
+            throw new MethodAccessException("This user does not exist");
         }
     }
 }
